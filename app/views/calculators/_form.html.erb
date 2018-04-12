@@ -1,0 +1,4 @@
+<%= form_tag calculators_path, method: "post", id: "new-calculation-form" do %>
+	<%= text_field_tag :calculation, params[:calculation_query] %>
+	<%= submit_tag "=", name: "Enter" %>
+<% end %>
