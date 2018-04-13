@@ -1,7 +1,8 @@
 module Calculator
 
 	def self.calculate_and_format(calculation_query)
-		"#{calculation_query} = #{calculate(calculation_query)}"
+		calculation = calculate(calculation_query)
+		(calculation == invalid_query) ? "#{calculation} : #{calculation_query}" : "#{calculation_query} = #{calculation}"
 	end
 
 	def self.calculate(expression)

@@ -3,38 +3,39 @@ require 'rails_helper'
 RSpec.describe Calculator do
 	describe 'self.calculate(calculation_query)' do
 		context 'when valid query' do
-			context 'simple and valid' do
-				it 'does not throw error if no calculation to perform, but valid number in query' do
-					expect(Calculator.calculate("-33328282.9")).to eq(-33328282.9)
-					expect(Calculator.calculate(".98789")).to eq(0.98789)
-					expect(Calculator.calculate("0")).to eq(0)
-					expect(Calculator.calculate("4()")).to eq(4.0)
-				end
-				it 'converts string to integers, operators, and returns proper calculation' do
-					expect(Calculator.calculate("3+4")).to eq(7)
-					expect(Calculator.calculate("+5+3")).to eq(8.0)
-				end
-				it 'handles decimals, fractions, and non-integer division results' do
-					expect(Calculator.calculate("3/4")).to eq(0.75)
-					expect(Calculator.calculate("3.3/4.4").zero?).to be false
-					expect(Calculator.calculate("(2/3)/(3/2)").zero?).to be false
-				end
-				it "handles exponent sign '^' as Ruby's '**" do
-					expect(Calculator.calculate("3^3*2")).to eq(54)
-					expect(Calculator.calculate("-(3^3)*2")).to eq(-54)
-					expect(Calculator.calculate("(3^3)*2")).to eq(54)
-				end
-				it 'handles negative and subtraction signs properly' do
-					expect(Calculator.calculate("3----4")).to eq(7)
-					expect(Calculator.calculate("-3+4*(4-4)")).to eq(-3)
-				end
-				it "converts 'sqrt' input find square root" do
-					expect(Calculator.calculate("sqrt(4)")).to eq(2)
-					expect(Calculator.calculate("sqrt4")).to eq(2)
-					expect(Calculator.calculate("sqrtsqrt16")).to eq(2)
-					expect(Calculator.calculate("-sqrtsqrt(2*9-2)")).to eq(-2)
-					expect(Calculator.calculate("sqrt(-(2-6))")).to eq(2)
-				end
+			it 'does not throw error if no calculation to perform, but valid number in query' do
+				expect(Calculator.calculate("-33328282.9")).to eq(-33328282.9)
+				expect(Calculator.calculate(".98789")).to eq(0.98789)
+				expect(Calculator.calculate("0")).to eq(0)
+				expect(Calculator.calculate("4()")).to eq(4.0)
+			end
+			it 'converts string to integers, operators, and returns proper calculation' do
+				expect(Calculator.calculate("3+4")).to eq(7)
+				expect(Calculator.calculate("+5+3")).to eq(8.0)
+			end
+			it 'handles decimals, fractions, and non-integer division results' do
+				expect(Calculator.calculate("3/4")).to eq(0.75)
+				expect(Calculator.calculate("3.3/4.4").zero?).to be false
+				expect(Calculator.calculate("(2/3)/(3/2)").zero?).to be false
+			end
+			it "handles exponent sign '^' as Ruby's '**" do
+				expect(Calculator.calculate("3^3*2")).to eq(54)
+				expect(Calculator.calculate("-(3^3)*2")).to eq(-54)
+				expect(Calculator.calculate("(3^3)*2")).to eq(54)
+			end
+			it 'handles negative and subtraction signs properly' do
+				expect(Calculator.calculate("3----4")).to eq(7)
+				expect(Calculator.calculate("-3+4*(4-4)")).to eq(-3)
+			end
+			it "converts 'sqrt' input find square root" do
+				expect(Calculator.calculate("sqrt(4)")).to eq(2)
+				expect(Calculator.calculate("sqrt4")).to eq(2)
+				expect(Calculator.calculate("sqrtsqrt16")).to eq(2)
+				expect(Calculator.calculate("-sqrtsqrt(2*9-2)")).to eq(-2)
+				expect(Calculator.calculate("sqrt(-(2-6))")).to eq(2)
+			end
+			it 'handles division by zero' do
+				expect(Calculator.calculate("5/0").to_s).to eq("Infinity")				
 			end
 		end
 		context 'when invalid characters are included' do
@@ -54,7 +55,7 @@ RSpec.describe Calculator do
 			end
 			it 'does not return imaginary numbers' do
 				expect(Calculator.calculate("sqrt-5")).to eq("Invalid Query")				
-			end				
+			end		
 		end
 	end	
 
