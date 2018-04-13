@@ -1,5 +1,5 @@
 module Api
-	class CalculatorsController < ApplicationController
+	class CalculationsController < ApplicationController
 
 		def create
 			@calculation = Calculator.calculate_and_format(calculation_params)

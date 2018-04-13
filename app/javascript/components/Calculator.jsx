@@ -22,7 +22,7 @@ class Calculator extends React.Component {
 
   componentDidMount() {
     $.ajax({
-		url: '/api/calculators',
+		url: '/api/calculations',
 		method: 'GET',
 		success: function(data) {
   			this.setState({ calculations: data.calculations });
@@ -36,7 +36,7 @@ class Calculator extends React.Component {
 
   handleSubmit(event) {
     $.ajax({
-		url: '/api/calculators',
+		url: '/api/calculations',
 		method: 'POST',
 		data: { calculation: this.state.newCalculationQuery },
 		success: function(data) {
